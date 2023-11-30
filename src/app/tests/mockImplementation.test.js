@@ -1,20 +1,22 @@
-// File: test/mockImplementation.test.js
-function manipulateArray(array, manipulateMethod) {
-    return array.map((item) => manipulateMethod(item));
-  }
-  
-  test("playground", () => {
-    const array = [0, 1, 2];
-    const manipulateMethod = jest.fn().mockImplementation((x) => x + 2);
-    manipulateArray(array, manipulateMethod);
-  
-    console.log(manipulateMethod.mock.results);
+// ProductService.test.js
+
+import ProductService from './../pages/mockImplementation';
+
+jest.mock('./../pages/mockImplementation', () => ({
+  getProductDetails: jest.fn(() => ({
+    id: 'mockedProductId',
+    name: 'Mocked Product',
+    price: 9.99,
+  })),
+}));
+
+describe('ProductService', () => {
+  it('should return mocked product details', async () => {
+    const product = await ProductService.getProductDetails('someProductId');
+    expect(product).toEqual({
+      id: 'mockedProductId',
+      name: 'Mocked Product',
+      price: 9.99,
+    });
   });
-  
-  /* OUTPUT:
-    [
-      { type: 'return', value: 2 },
-      { type: 'return', value: 3 },
-      { type: 'return', value: 4 }
-    ]
-  */
+});

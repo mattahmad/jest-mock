@@ -1,21 +1,11 @@
-// File: mockImplementation.js
-import axios from "axios";
+// mockImplementation.js
 
-async function getProduct(productId) {
-  const response = await axios.get(
-    `https://dummyjson.com/products/${productId}`
-  );
-
-  return response.data;
-}
-
-function mapProduct(data) {
-  const mappedData = { ...data };
-
-  mappedData.hotDeal = data.discountPercentage > 80;
-  mappedData.isRunningOut = data.stock < 5;
-
-  return mappedData;
-}
-
-export { getProduct, mapProduct };
+class ProductService {
+    async getProductDetails(productId) {
+      // Fetch product details from an API
+      // (actual implementation not shown here)
+      return { id: productId, name: 'Sample Product', price: 49.99 };
+    }
+  }
+  
+  export default new ProductService();

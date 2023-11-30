@@ -1,21 +1,11 @@
-// withImplementation.js
-import axios from "axios";
+// withImplemenation.js
 
-async function getProduct(productId) {
-  const response = await axios.get(
-    `https://dummyjson.com/products/${productId}`
-  );
-
-  return response.data;
-}
-
-function mapProduct(data) {
-  const mappedData = { ...data };
-
-  mappedData.hotDeal = data.discountPercentage > 80;
-  mappedData.isRunningOut = data.stock < 5;
-
-  return mappedData;
-}
-
-export { getProduct, mapProduct };
+class OrderService {
+    async placeOrder(orderData) {
+      // Actual order placement logic
+      // (actual implementation not shown here)
+      return { orderId: '12345', status: 'success' };
+    }
+  }
+  
+  export default new OrderService();

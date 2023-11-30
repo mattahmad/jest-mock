@@ -1,23 +1,31 @@
-// File: tests/withImplementation.test.js
-test("playground", () => {
-    const mockMethod = jest.fn(() => "outside callback");
-  
-    console.log(mockMethod());
-  
-    mockMethod.withImplementation(
-      // temporary implementation for the mock function
-      () => "inside callback",
-      // the scope in which the implementation will be applied
-      () => {
-        console.log(mockMethod());
-      }
-    );
-  
-    console.log(mockMethod());
+// tests/withImplementation.test.js
+
+import OrderService from './../pages/withImplementation';
+
+describe('OrderService', () => {
+  it('should handle successful order placement', async () => {
+    OrderService.placeOrder.withImplementation((orderData) => ({
+      orderId: 'mockedOrderId',
+      status: 'success',
+    }));
+
+    const orderResult = await OrderService.placeOrder({ /* order data */ });
+    expect(orderResult).toEqual({
+      orderId: 'mockedOrderId',
+      status: 'success',
+    });
   });
-  
-  /* OUTPUT:
-    outside callback
-    inside callback
-    outside callback
-  */
+
+  it('should handle order failure', async () => {
+    OrderService.placeOrder.withImplementation((orderData) => ({
+      orderId: null,
+      status: 'failure',
+    }));
+
+    const orderResult = await OrderService.placeOrder({ /* order data */ });
+    expect(orderResult).toEqual({
+      orderId: null,
+      status: 'failure',
+    });
+  });
+});
