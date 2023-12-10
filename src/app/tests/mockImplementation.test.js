@@ -1,4 +1,4 @@
-// ProductService.test.js
+// tests/mockImplementation.test.js
 
 import ProductService from './../pages/mockImplementation';
 
